@@ -1,0 +1,34 @@
+#!/usr/bin/env bash
+set -eo pipefail
+
+echo "HTTP Node.js Function Buildpack"
+
+# INPUT ARGUMENTS
+layers_dir="$1"
+platform_dir="$2"
+env_dir="${platform_dir}/env"
+plan_path="$3"
+
+# Extract the module name from the plan.
+MODULE=$(cat ${plan_path} | \
+	      yj -tj | \
+	      jq -r '.entries | map(select(.name=="http-nodejs-function")) | .[0].metadata.module')
+echo "  Module   -> ${MODULE}"
+
+FUNCTION=$(cat ${plan_path} | \
+	      yj -tj | \
+	      jq -r '.entries | map(select(.name=="http-nodejs-function")) | .[0].metadata.function')
+echo "  Function -> ${FUNCTION}"
+
+cat > ./server.js <<EOF
+const http = require('http');
+const port = process.env.PORT || 8080
+
+const fn = require('${MODULE}').${FUNCTION};
+
+http.createServer(fn).listen(port)
+
+EOF
+
+
+echo

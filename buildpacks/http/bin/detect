@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+set -eo pipefail
+
+if [[ -z "${HTTP_NODEJS_FUNCTION}" && -z "${HTTP_NODEJS_MODULE}" ]]; then
+    echo Either HTTP_NODEJS_FUNCTION or HTTP_NODEJS_MODULE must be set.
+    exit 1
+fi
+
+# 1. GET ARGS
+plan_path=$2
+
+# 2. DECLARE DEPENDENCIES (OPTIONAL)
+cat >> "${plan_path}" <<EOL
+[[provides]]
+name = "http-nodejs-function"
+
+[[requires]]
+name = "http-nodejs-function"
+
+[requires.metadata]
+function = "${HTTP_NODEJS_FUNCTION:-handler}"
+module = "${HTTP_NODEJS_MODULE:-./index.js}"
+EOL

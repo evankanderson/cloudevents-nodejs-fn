@@ -2,9 +2,33 @@
 uri = "buildpacks/order"
 
 [[dependencies]]
-image = "ghcr.io/mattmoor/hello-buildpacks:v0.0.3"
-# Alternately:
-# uri = "../hello-buildpacks/buildpacks"
+uri = "buildpacks/http"
+
+# TODO(mattmoor): Add cloudevents.
+
+###################################################################
+#
+# TODO: add Node.js buildpacks for custom order below.
+#
+###################################################################
+[[dependencies]]
+image = "gcr.io/paketo-buildpacks/node-engine:0.1.3"
 
 [[dependencies]]
-uri = "buildpacks/dependent"
+image = "gcr.io/paketo-buildpacks/yarn:0.1.1"
+
+[[dependencies]]
+image = "gcr.io/paketo-buildpacks/yarn-install:0.2.1"
+
+[[dependencies]]
+image = "gcr.io/paketo-buildpacks/yarn-start:0.0.3"
+
+[[dependencies]]
+image = "gcr.io/paketo-buildpacks/npm-install:0.2.2"
+
+[[dependencies]]
+image = "gcr.io/paketo-buildpacks/npm-start:0.0.3"
+
+[[dependencies]]
+image = "gcr.io/paketo-buildpacks/node-start:0.0.7"
+

@@ -3,10 +3,10 @@ api = "0.2"
 
 # Buildpack ID and metadata
 [buildpack]
-id = "hello-dependent"
+id = "io.mattmoor.http.nodejs.functions"
 version = "0.0.0"
-name = "Buildpack (dependent) Template"
-homepage = "https://github.com/mattmoor/hello-dependencies"
+name = "Node.js HTTP Function Buildpack"
+homepage = "https://github.com/mattmoor/cloudevents-nodejs-fn"
 
 # Stacks that the buildpack will work with
 [[stacks]]
